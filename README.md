@@ -1,2 +1,6 @@
-# atlas-observatory-145
-Ryan Vo | DeepTutor: Lifelong Personalized Tutoring. https://deeptutor.info/.
+# DeepTutor (atlas-observatory-145)\n\nDeepTutor is a personalized tutoring platform that provides lifelong learning experiences.\n\n## Repository Status\n\nThis repository is in **new** phase, starting with minimal scaffolding.\n\n## Features\n\n- **Core**: FastAPI backend with authentication and user management.\n- **Learning Surfaces**: Chat, Reading, Questions, Sessions, Knowledge Bases, Mastery Paths, Courses.\n- **Bug Fix**: Learner accounts can now access `/api/courses` without receiving a 403 error.\n\n## How to Run\n\n1. Ensure Python 3.11+ and pip.\n2. Install the package in development mode:\n   ```bash\n   pip install -e .\n   ```\n3. Run the FastAPI server:\n   ```bash\n   deep_tutor start\n   ```\n\n## Project Structure\n\n- `deep_tutor/` – package root\n  - `api/` – API routers and endpoints\n  - `multi_user/` – authentication and access control\n- `feature-plan.json` – feature roadmap\n- `PLAN.md` – project plan\n\n## Bug Fix: Learner Courses Access\n\nPreviously, learner accounts (`preset=\"learner\"`) were denied access to the `/api/courses` endpoint, causing a 403 error that the UI masked as an empty state. This fix adds `/api/courses` to the surface mapping in `deeptutor/api/routers/auth.py` and ensures the learning surface check in `deeptutor/multi_user/learning_access.py` passes.\n\n## Testing\n\nRun existing tests with pytest:\n\n```bash\npytest -xvs\n```\n\nFuture rounds will add comprehensive test coverage.\n
+
+> Work in progress. This checkpoint may be incomplete or fail tests. See PLAN.md and STATUS.md before use.
+
+
+Maintainer: Ryan Vo <ryandtvo@gmail.com>
