@@ -4,7 +4,7 @@ Each round completes one feature or repair. Future items are planned, not implem
 
 ## Current round
 
-learners-courses-access
+learner-course-enrollment
 
 ## Roadmap
 
@@ -18,4 +18,17 @@ Acceptance:
 Implementation: `deep_tutor/api/routers/auth.py`, `deep_tutor/multi_user/learning_access.py`
 
 Tests: `test_api_learning_access.py`
+
+### learner-course-enrollment — Gate learner course detail by enrollment
+
+Status: done
+
+Acceptance:
+- Learner with courses surface can list/create/search courses
+- Reading detail/materials/progress of a non-enrolled course raises PermissionError
+- Collection actions are not enrollment-gated
+
+Implementation: `deep_tutor/api/routers/courses.py`
+
+Tests: `test_course_access.py`
 
