@@ -21,7 +21,13 @@ _PATH_TO_SURFACE: Dict[str, str] = {
 def _learning_surface_for_path(path: str) -> str:
     """Return the learning surface for the given request path, or empty string if unknown."""
 
-    # Normalize: strip query string, fragment, ensure leading slash.
+    # Normalize: strip query string and fragment, then ensure a leading slash.
+    # Without this, "/api/courses?page=2" would not match "/api/courses" and the
+    # request would resolve to an empty surface (-> 403 for learners).
+    for sep in ("?", "#"):
+        idx = path.find(sep)
+        if idx != -1:
+            path = path[:idx]
     if not path.startswith("/"):
         path = "/" + path
 

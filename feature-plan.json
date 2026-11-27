@@ -1,1 +1,53 @@
-{"schema_version":1,"current_feature":"learner-course-enrollment","features":[{"id":"learners-courses-access","title":"Fix learner 403 on /api/courses","status":"done","acceptance":["Learner accounts with preset=learner can access /api/courses without 403; UI does not mask with empty state"],"implementation":["deep_tutor/api/routers/auth.py","deep_tutor/multi_user/learning_access.py"],"tests":["test_api_learning_access.py"]},{"id":"learner-course-enrollment","title":"Gate learner course detail by enrollment","status":"done","acceptance":["Learner with courses surface can list/create/search courses","Reading detail/materials/progress of a non-enrolled course raises PermissionError","Collection actions are not enrollment-gated"],"implementation":["deep_tutor/api/routers/courses.py"],"tests":["test_course_access.py"]}]}
+{
+  "schema_version": 1,
+  "current_feature": "learner-course-enrollment",
+  "features": [
+    {
+      "id": "learners-courses-access",
+      "title": "Fix learner 403 on /api/courses",
+      "status": "done",
+      "acceptance": [
+        "Learner accounts with preset=learner can access /api/courses without 403; UI does not mask with empty state"
+      ],
+      "implementation": [
+        "deep_tutor/api/routers/auth.py",
+        "deep_tutor/multi_user/learning_access.py"
+      ],
+      "tests": [
+        "test_api_learning_access.py"
+      ]
+    },
+    {
+      "id": "learner-course-enrollment",
+      "title": "Gate learner course detail by enrollment",
+      "status": "done",
+      "acceptance": [
+        "Learner with courses surface can list/create/search courses",
+        "Reading detail/materials/progress of a non-enrolled course raises PermissionError",
+        "Collection actions are not enrollment-gated"
+      ],
+      "implementation": [
+        "deep_tutor/api/routers/courses.py"
+      ],
+      "tests": [
+        "test_course_access.py"
+      ]
+    },
+    {
+      "id": "course-path-normalization",
+      "title": "Ignore query/fragment in course surface and enrollment paths",
+      "status": "done",
+      "acceptance": [
+        "/api/courses?page=2 and /api/courses#top resolve to the 'courses' surface (no learner 403)",
+        "Course-scoped paths with a query/fragment parse the bare course id for enrollment checks"
+      ],
+      "implementation": [
+        "deep_tutor/api/routers/auth.py",
+        "deep_tutor/api/routers/courses.py"
+      ],
+      "tests": [
+        "tests/test_course_access.py"
+      ]
+    }
+  ]
+}

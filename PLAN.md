@@ -32,3 +32,15 @@ Implementation: `deep_tutor/api/routers/courses.py`
 
 Tests: `test_course_access.py`
 
+### course-path-normalization — Ignore query/fragment in course surface and enrollment paths
+
+Status: done
+
+Acceptance:
+- /api/courses?page=2 and /api/courses#top resolve to the 'courses' surface (no learner 403)
+- Course-scoped paths with a query/fragment parse the bare course id for enrollment checks
+
+Implementation: `deep_tutor/api/routers/auth.py`, `deep_tutor/api/routers/courses.py`
+
+Tests: `tests/test_course_access.py`
+
