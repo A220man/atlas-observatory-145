@@ -24,6 +24,12 @@ def _split_course_path(path: str) -> Tuple[Optional[str], str]:
     ``/api/courses/42``         -> ("42", "")       (detail)
     ``/api/courses/42/notes``   -> ("42", "notes")  (scoped action)
     """
+    # Strip query string and fragment so course ids are not polluted by them
+    # (e.g. "/api/courses/42?tab=notes" must still resolve course_id "42").
+    for sep in ("?", "#"):
+        idx = path.find(sep)
+        if idx != -1:
+            path = path[:idx]
     if not path.startswith("/"):
         path = "/" + path
     if not path.startswith(_COURSES_PREFIX):

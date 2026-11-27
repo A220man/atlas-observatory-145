@@ -60,3 +60,19 @@ def test_learner_surface_reaches_courses_and_enforces_enrollment():
     assert_course_access("/api/courses/42", allowed and {"42"})
     with pytest.raises(PermissionError):
         assert_course_access("/api/courses/other", allowed and {"42"})
+
+
+def test_query_and_fragment_do_not_break_surface_or_enrollment():
+    # Surface resolution must ignore query/fragment (regression for learner 403).
+    assert _learning_surface_for_path("/api/courses?page=2") == "courses"
+    assert _learning_surface_for_path("/api/courses#top") == "courses"
+    assert _learning_surface_for_path("/api/courses/42?tab=notes") == "courses"
+
+    # Course id parsing must ignore query/fragment.
+    assert _split_course_path("/api/courses/42?tab=notes") == ("42", "")
+    assert _split_course_path("/api/courses/42/materials#x") == ("42", "materials")
+
+    # An enrolled learner is not wrongly denied because of a query string.
+    assert_course_access("/api/courses/42?tab=notes", {"42"})
+    with pytest.raises(PermissionError):
+        assert_course_access("/api/courses/99?tab=notes", {"42"})

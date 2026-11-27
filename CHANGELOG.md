@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.3.0 — work-in-progress checkpoint
+
+Partial code published for continued development. Known issues: STATUS.md.
+
+## 1.2.1 — work-in-progress checkpoint
+
+- Fix: strip query string and fragment before learning-surface resolution
+  (`deep_tutor/api/routers/auth.py`) and course-id parsing
+  (`deep_tutor/api/routers/courses.py`). Parameterized requests such as
+  `/api/courses?page=2` now resolve correctly instead of yielding an empty
+  surface (learner 403) or a polluted course id.
+- Tests: `tests/test_course_access.py` regression added (full suite 10 passed).
+
+Partial code published for continued development. Known issues: STATUS.md.
+
 ## 1.2.0 — work-in-progress checkpoint
 
 Partial code published for continued development. Known issues: STATUS.md.
